@@ -103,7 +103,7 @@ class NameData(eTRVSingleData):
 
 
 class CurrentTimeData(eTRVSingleData):
-    current_time = LocalDateTimeField('time_local', tz_field='time_offset')
+    current_time = LocalDateTimeField(name='time_local', tz_field='time_offset', auto_save=True)
 
     class Meta:
         structure = {

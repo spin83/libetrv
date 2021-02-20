@@ -1,5 +1,6 @@
 import time
 import fire
+import datetime as dt
 from libetrv.device import eTRVDevice
 
 
@@ -74,8 +75,8 @@ class Device:
         print("Device name: '{}'".format(device_name))
 
     def current_time(self):
-        time_utc = self._device.current_time
-        print("Current time: {}".format(time_to_str(time)))
+        device_time = self._device.current_time
+        print("Current time: {}".format(time_to_str(device_time)))
         
     def set_setpoint(self, setpoint):
         self._device.temperature.set_point_temperature = setpoint
@@ -92,6 +93,8 @@ class Device:
         else:
             print('Invalid pin number')
 
+    def set_current_time(self):
+        self._device.current_time = dt.datetime.now(dt.timezone.utc).astimezone()
 
 if __name__ == "__main__":
     fire.Fire(CLI)

@@ -28,9 +28,10 @@ class LocalDateTimeField(eTRVField):
     def from_raw_value(self, raw_value, property):
         if raw_value == 0:
             return None
+        handler, raw_data = next(iter(property.raw_data.items()))
         return datetime.fromtimestamp(
             raw_value,
-            tz=timezone(timedelta(seconds=getattr(property, self.tz_field))
+            tz=timezone(timedelta(seconds=getattr(raw_data, self.tz_field))
         ))
 
     def to_raw_value(self, value, property):
@@ -40,8 +41,9 @@ class LocalDateTimeField(eTRVField):
         elif isinstance(value, datetime):
             utc_offset = value.utcoffset()
             if utc_offset is not None:
-                setattr(property, self.tz_field, utc_offset.total_seconds())
-            return value.timestamp()
+                handler, raw_data = next(iter(property.raw_data.items()))
+                setattr(raw_data, self.tz_field, int(utc_offset.total_seconds()))
+            return int(value.timestamp())
         elif isinstance(value, int):
             return value
         

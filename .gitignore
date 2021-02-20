@@ -79,6 +79,10 @@ ipython_config.py
 
 # pyenv
 .python-version
+pyvenv.cfg
+lib64
+bin/
+share/
 
 # celery beat schedule file
 celerybeat-schedule
@@ -116,3 +120,4 @@ dmypy.json
 # User-specific stuff
 .idea/
 .vscode/
+
