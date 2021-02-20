@@ -114,6 +114,18 @@ class CurrentTimeData(eTRVSingleData):
         }
         direct_field = 'current_time'
 
+class LocaleData(eTRVSingleData):
+    locale = TextField(max_length=2, auto_save=True)
+
+    class Meta:
+        structure = {
+            0x3c: """
+                char locale[2];
+                unsigned char padding[6];
+            """
+        }
+        direct_field = 'locale'
+        write_only = True
 
 class SecretKeyData(eTRVSingleData):
     key = HexField(read_only=True)

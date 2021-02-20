@@ -1,6 +1,7 @@
 import time
 import fire
 import datetime as dt
+import locale
 from libetrv.device import eTRVDevice
 
 
@@ -95,6 +96,9 @@ class Device:
 
     def set_current_time(self):
         self._device.current_time = dt.datetime.now(dt.timezone.utc).astimezone()
+
+    def set_locale(self):
+        self._device.locale = locale.getdefaultlocale()[0].split('_')[0].lower()
 
 if __name__ == "__main__":
     fire.Fire(CLI)

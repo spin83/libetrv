@@ -40,6 +40,7 @@ class eTRVData(metaclass=eTRVDataMeta):
         send_pin = True
         use_encoding = True
         read_only = False
+        write_only = False
 
     def __init__(self, device):
         self.device = device
@@ -85,6 +86,8 @@ class eTRVData(metaclass=eTRVDataMeta):
         """
         If handlers are None it will use all
         """
+        if getattr(self.Meta, 'write_only', eTRVData.Meta.write_only):
+            raise AttributeError('this attribute is write-only')
         send_pin = getattr(self.Meta, 'send_pin', eTRVData.Meta.send_pin)
         use_encoding = getattr(self.Meta, 'use_encoding', eTRVData.Meta.use_encoding)
         for handler, struct in self.raw_data.items():

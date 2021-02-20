@@ -5,7 +5,7 @@ from datetime import datetime
 from .bluetooth import btle
 from loguru import logger
 
-from .data_struct import BatteryData, PinSettingsData, SettingsData, TemperatureData, CurrentTimeData, SecretKeyData, NameData
+from .data_struct import BatteryData, PinSettingsData, SettingsData, TemperatureData, CurrentTimeData, SecretKeyData, NameData, LocaleData
 from .properties import eTRVProperty
 from .utils import etrv_read, etrv_write
 
@@ -127,6 +127,8 @@ class eTRVDevice(metaclass=eTRVDeviceMeta):
     name = eTRVProperty(NameData)
 
     current_time = eTRVProperty(CurrentTimeData)
+
+    locale = eTRVProperty(LocaleData)
 
     secret_key = eTRVProperty(SecretKeyData)
 
