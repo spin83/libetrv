@@ -114,6 +114,26 @@ class CurrentTimeData(eTRVSingleData):
         }
         direct_field = 'current_time'
 
+class ErrorBits(enum.IntEnum):
+    E9_VALVE_DOES_NOT_CLOSE = 8
+    E10_INVALID_TIME = 9
+    E14_LOW_BATTERY = 13
+    E15_VERY_LOW_BATTERY = 14
+
+class ErrorData(eTRVData):
+    error = eTRVField(auto_save=True)
+    e9_valve_does_not_close = BitField(name='error', bit_position=ErrorBits.E9_VALVE_DOES_NOT_CLOSE)
+    e10_invalid_time = BitField(name='error', bit_position=ErrorBits.E10_INVALID_TIME)
+    e14_low_battery = BitField(name='error', bit_position=ErrorBits.E14_LOW_BATTERY)
+    e15_very_low_battery = BitField(name='error', bit_position=ErrorBits.E15_VERY_LOW_BATTERY)
+    class Meta:
+        structure = {
+            0x39: """
+                unsigned short error;
+                unsigned char padding[6];
+            """
+        }
+
 class LocaleData(eTRVSingleData):
     locale = TextField(max_length=2, auto_save=True)
 

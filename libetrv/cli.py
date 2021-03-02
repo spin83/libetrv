@@ -100,5 +100,16 @@ class Device:
     def set_locale(self):
         self._device.locale = locale.getdefaultlocale()[0].split('_')[0].lower()
 
+    def error(self):
+        result = self._device.error
+        print("Error:                   0x{:x}".format(result.error))
+        print("E9 valve does not close: {}".format(result.e9_valve_does_not_close))
+        print("E10 invalid time:        {}".format(result.e10_invalid_time))
+        print("E14 low battery:         {}".format(result.e14_low_battery))
+        print("E15 very low_battery:    {}".format(result.e15_very_low_battery))
+    
+    def clear_error(self):
+        self._device.error.error = 0
+
 if __name__ == "__main__":
     fire.Fire(CLI)
