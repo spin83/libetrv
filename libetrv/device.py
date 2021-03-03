@@ -6,7 +6,7 @@ from .bluetooth import btle
 from loguru import logger
 
 from .data_struct import BatteryData, PinSettingsData, SettingsData, TemperatureData, CurrentTimeData, \
-    SecretKeyData, NameData, LocaleData, ErrorData, DeviceInformationData
+    SecretKeyData, NameData, LocaleData, ErrorData, DeviceInformationData, UpdateTokenData
 from .properties import eTRVProperty
 from .utils import etrv_read, etrv_write
 
@@ -136,6 +136,8 @@ class eTRVDevice(metaclass=eTRVDeviceMeta):
     error = eTRVProperty(ErrorData)
 
     secret_key = eTRVProperty(SecretKeyData)
+    
+    update_token = eTRVProperty(UpdateTokenData)
 
     # @property
     # @etrv_read(SCHEDULE_RW, True)

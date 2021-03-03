@@ -2,7 +2,7 @@ import enum
 
 from .properties import eTRVData, eTRVSingleData
 from .fields import eTRVField, TemperatureField, UTCDateTimeField, LocalDateTimeField, EnumField, \
-    HexField, TextField, BitField
+    HexField, TextField, BitField, Base64Field
 
 
 class BatteryData(eTRVSingleData):
@@ -182,6 +182,18 @@ class SecretKeyData(eTRVSingleData):
         use_encoding = False
         direct_field = 'key'
 
+class UpdateTokenData(eTRVSingleData):
+    token = Base64Field(read_only=True)
+
+    class Meta:
+        structure = {
+            0x42: """
+                char token[12];
+            """
+        }
+        read_only = True
+        use_encoding = False
+        direct_field = 'token'
 
 # class DaySchedule(eTRVData):
 #     __struct__ = """

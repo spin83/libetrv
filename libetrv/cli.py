@@ -118,6 +118,9 @@ class Device:
         print("Hardware revision: {}".format(result.hardware_revision))
         print("Firmware revision: {}".format(result.firmware_revision))
         print("Software revision: {}".format(result.software_revision))
+        
+    def update_token(self):
+        print("Update token: {}".format(self._device.update_token))
 
 if __name__ == "__main__":
     fire.Fire(CLI)
