@@ -47,13 +47,25 @@ class eTRVData(metaclass=eTRVDataMeta):
         # TODO Should we switch to frozendict?
         self.raw_data = {}
         for handler, struct in self.Meta.structure.items():
-            class RawDataStruct(CStruct):
-                __byte_order__ = BIG_ENDIAN
-                __struct__ = struct
-                is_populated = False
-                is_changed = False
+            if struct.startswith("str"):
+                setattr(self.Meta, 'read_only', True)
+                class StringData:
+                    __field__ = struct.split(" ")[1]
+                    is_populated = False
+                    is_changed = False
+                    
+                    def unpack(self, data):
+                        setattr(self, self.__field__, data.decode('utf-8'))
 
-            self.raw_data[handler] = RawDataStruct()
+                self.raw_data[handler] = StringData()
+            else:
+                class RawDataStruct(CStruct):
+                    __byte_order__ = BIG_ENDIAN
+                    __struct__ = struct
+                    is_populated = False
+                    is_changed = False
+
+                self.raw_data[handler] = RawDataStruct()
 
     def retrieve(self):
         if not self.is_populated:

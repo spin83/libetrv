@@ -17,6 +17,29 @@ class BatteryData(eTRVSingleData):
         read_only = True
         direct_field = 'battery'
 
+
+class DeviceInformationData(eTRVData):
+    manufacturer_name = eTRVField(0x15, read_only=True)
+    model_number = eTRVField(0x17, read_only=True)
+    serial_number = eTRVField(0x19, read_only=True)
+    hardware_revision = eTRVField(0x1b, read_only=True)
+    firmware_revision = eTRVField(0x1d, read_only=True)
+    software_revision = eTRVField(0x1f, read_only=True)
+    system_id = eTRVField(0x21, read_only=True)
+    class Meta:
+        structure = {
+            0x15: "str manufacturer_name",
+            0x17: "str model_number",
+            0x19: "str serial_number",
+            0x1b: "str hardware_revision",
+            0x1d: "str firmware_revision",
+            0x1f: "str software_revision",
+            0x21: "str system_id"
+        }
+        use_encoding = False
+        read_only = True
+
+
 class PinSettingsData(eTRVData):
     pin_number = eTRVField()
     pin_enabled = BitField(name='pin_enabled', bit_position=0)

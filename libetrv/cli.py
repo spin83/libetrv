@@ -110,6 +110,14 @@ class Device:
     
     def clear_error(self):
         self._device.error.error = 0
+        
+    def information(self):
+        result = self._device.information
+        print("Manufacturer name: {}".format(result.manufacturer_name))
+        print("Model number:      {}".format(result.model_number))
+        print("Hardware revision: {}".format(result.hardware_revision))
+        print("Firmware revision: {}".format(result.firmware_revision))
+        print("Software revision: {}".format(result.software_revision))
 
 if __name__ == "__main__":
     fire.Fire(CLI)
